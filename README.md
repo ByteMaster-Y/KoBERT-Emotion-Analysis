@@ -4,7 +4,7 @@
 긍정/부정 리뷰를 자동으로 분류하며, 학습 과정과 예측 테스트를 포함합니다.
 
 ## 데이터셋 출처
-본 프로젝트에서 사용한 데이터셋은 [e9t/nsmc GitHub 저장소](https://github.com/e9t/nsmc)에서 제공하는 **NSMC(Naver Sentiment Movie Corpus)**입니다. 이 데이터셋은 네이버 영화 리뷰를 기반으로 한 감정 분석용 한국어 데이터셋으로, `ratings_train.txt`와 `ratings_test.txt` 파일을 포함하고 있습니다.
+본 프로젝트에서 사용한 데이터셋은 [e9t/nsmc GitHub 저장소](https://github.com/e9t/nsmc)에서 제공하는 NSMC(Naver Sentiment Movie Corpus)입니다. 이 데이터셋은 네이버 영화 리뷰를 기반으로 한 감정 분석용 한국어 데이터셋으로, `ratings_train.txt`와 `ratings_test.txt` 파일을 포함하고 있습니다.
 
 ---
 

@@ -1,4 +1,4 @@
-# KoBERT 감정 분석 프로젝트
+# KoBERT 영화 리뷰 감정 분석 프로젝트
 
 한국어 영화 리뷰 데이터를 기반으로 KoBERT 모델을 활용한 감정 분석 프로젝트입니다.  
 긍정/부정 리뷰를 자동으로 분류하며, 학습 과정과 예측 테스트를 포함합니다.
@@ -83,7 +83,7 @@ dataset = load_dataset(
 
 ## Training Log Visualization
 
-
+<img width="1200" height="688" alt="Image" src="https://github.com/user-attachments/assets/c1f63d11-381b-4f30-b43c-d57c61e3b9dd" />
 
 
 ---

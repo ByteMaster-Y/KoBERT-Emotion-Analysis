@@ -1,0 +1,71 @@
+# KoBERT 감정 분석 프로젝트
+
+한국어 영화 리뷰 데이터를 기반으로 KoBERT 모델을 활용한 감정 분석 프로젝트입니다.  
+긍정/부정 리뷰를 자동으로 분류하며, 학습 과정과 예측 테스트를 포함합니다.
+
+## 데이터셋 출처
+본 프로젝트에서 사용한 데이터셋은 [e9t/nsmc GitHub 저장소](https://github.com/e9t/nsmc)에서 제공하는 **NSMC(Naver Sentiment Movie Corpus)**입니다. 이 데이터셋은 네이버 영화 리뷰를 기반으로 한 감정 분석용 한국어 데이터셋으로, `ratings_train.txt`와 `ratings_test.txt` 파일을 포함하고 있습니다.
+
+---
+
+## 프로젝트 개요
+
+- **목표**: 영화 리뷰 데이터를 분석하여 감정을 분류하고, KoBERT 모델을 활용한 한국어 NLP 경험 습득
+- **주요 기능**:
+  - 한국어 리뷰 전처리 및 정제
+  - KoBERT 기반 이진 분류 모델 학습
+  - 학습된 모델로 입력 문장 감정 예측
+
+---
+
+## 데이터
+
+- **데이터 출처**: NSMC(Naver Sentiment Movie Corpus)  
+- **파일**:
+  - `ratings_train.txt` (학습 데이터, 150,001개)
+  - `ratings_test.txt` (테스트 데이터, 50,001개)
+- **열(column)**: `document` (리뷰 내용), `label` (0=부정, 1=긍정)
+- **전처리**:
+  - 결측치 처리 및 문자열 변환
+  - 레이블 형식 통일 (`int`)  
+
+---
+
+## 모델
+
+- **모델명**: `skt/kobert-base-v1` (KoBERT)
+- **분류 목적**: 긍정 / 부정
+- **토크나이징**:
+  - `max_length=64`, `padding=max_length`, `truncation=True`
+- **데이터 Collator**:
+  - `DataCollatorWithPadding` 사용 → 배치 내 문장 길이 다를 때 패딩 처리
+
+---
+
+## 학습 환경 및 설정
+
+- **학습 환경**: MacBook M1 (MPS GPU), PyTorch
+- **배치 사이즈**: 8
+- **Epoch**: 2
+- **Optimizer**: AdamW, Learning rate=5e-5
+- **Weight Decay**: 0.01
+- **FP16 사용 여부**: False (MPS는 FP16 미지원)
+- **로그**:
+  - 학습 진행 시 Loss, Gradient Norm, Learning Rate, Epoch 표시
+
+---
+
+## 평가 지표
+
+- **Accuracy**: 정확도
+- **F1 score**: 불균형 데이터셋에서 정밀도와 재현율 균형 평가
+- **평가 과정**: Trainer의 `compute_metrics`를 사용하여 검증 데이터셋 평가
+
+---
+
+## 사용 예시
+
+### 학습
+
+```zsh
+python koBERT_example.py

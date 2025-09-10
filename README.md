@@ -31,7 +31,7 @@
 ### 데이터셋 로드
 - `datasets` 라이브러리의 `load_dataset` 사용
 - 로컬 파일(`ratings_train.txt`, `ratings_test.txt`) 불러오기
-- 파일은 **탭(`\t`)**으로 구분, 열 이름: `document`, `label`
+- 파일은 탭(`\t`)으로 구분, 열 이름: `document`, `label`
 
 ```python
 from datasets import load_dataset
@@ -46,6 +46,7 @@ dataset = load_dataset(
     column_names=["document", "label"]
 )
 
+```
 ---
 
 ## 모델

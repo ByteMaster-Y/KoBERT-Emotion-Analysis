@@ -89,6 +89,7 @@ dataset = load_dataset(
 ---
 
 ## 사용 예시
+<img width="903" height="356" alt="Image" src="https://github.com/user-attachments/assets/8dd7859d-3a1d-4c46-944f-0cbd8fcff920" />
 
 ### 학습
 

@@ -47,6 +47,74 @@ dataset = load_dataset(
 )
 
 ```
+
+---
+
+### 데이터 전처리  
+
+KoBERT 모델 학습을 위해 원본 데이터를 **클린업(정제) → 라벨 처리 → 토크나이징** 순서로 전처리했습니다.  
+
+---
+
+### 1. 텍스트 정제 (Cleaning)  
+- `document` 값이 `None`이거나 문자열이 아닐 경우 빈 문자열(`""`)로 변환  
+- 모든 입력을 문자열(`str`) 타입으로 통일  
+
+```python
+def clean_text(example):
+    text = example["document"]
+    if text is None:
+        text = ""
+    elif not isinstance(text, str):
+        text = str(text)
+    example["document"] = text
+    return example
+
+```
+
+### 2. 라벨 정제 (Fixing Labels)
+
+- 라벨(label)을 정수형(int)으로 변환
+- 리스트나 문자열 형태로 들어온 경우에도 처리
+- 변환이 불가능할 경우 기본값 0으로 설정
+
+```python
+def fix_labels(batch):
+    labels = batch["label"]
+    new_labels = []
+    for l in labels:
+        if isinstance(l, list):
+            new_labels.append(int(l[0]))
+        else:
+            try:
+                new_labels.append(int(l))
+            except:
+                new_labels.append(0)
+    batch["label"] = new_labels
+    return batch
+
+```
+
+### 3. 토크나이징
+
+- **Hugging Face KoBERT 토크나이저** 사용  
+- 입력 문장을 모델이 처리할 수 있도록 **토큰 단위로 변환**  
+- 길이 통일 및 잘림 방지를 위해 다음 옵션 적용:  
+  - `padding="max_length"` → 모든 입력을 동일 길이로 패딩  
+  - `truncation=True` → 문장이 길면 잘라냄  
+  - `max_length=64` → 학습 효율성을 고려한 입력 길이  
+
+```python
+def tokenize_function(batch):
+    return tokenizer(
+        batch["document"],
+        padding="max_length",
+        truncation=True,
+        max_length=64
+    )
+
+```
+
 ---
 
 ## 모델

@@ -3,6 +3,8 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trai
 import numpy as np
 from sklearn.metrics import accuracy_score, f1_score
 import torch
+import matplotlib.pyplot as plt
+import pandas as pd
 torch.mps.empty_cache()
 
 # 1. GPU(MPS) 사용 확인
@@ -96,8 +98,52 @@ trainer = Trainer(
     compute_metrics=compute_metrics,
 )
 
+# # 9. 학습
+# trainer.train()
+
+# # 10. 예측 테스트
+# sample_text = "이 영화 진짜 재미있고 웃기면서 감동적이기 까지 하더라"
+# inputs = tokenizer(
+#     sample_text,
+#     return_tensors="pt",
+#     truncation=True,
+#     padding="max_length",
+#     max_length=64
+# ).to(device)
+
+# outputs = model(**inputs) # ** → 딕셔너리 풀기 → 키=값 형태로 함수에 전달
+# pred = outputs.logits.argmax(-1).item()
+# print("입력 문장:", sample_text)
+# print("예측 결과:", "긍정" if pred == 1 else "부정")
+
+
 # 9. 학습
 trainer.train()
+
+# 9-1. 학습 끝난 후 최종 성능 평가 & 그래프 저장
+eval_results = trainer.evaluate()
+print("최종 평가 결과:", eval_results)
+
+log_history = trainer.state.log_history
+df = pd.DataFrame(log_history)
+
+plt.figure(figsize=(10,6))
+if "loss" in df.columns:
+    plt.plot(df["step"], df["loss"], label="Train Loss")
+if "eval_loss" in df.columns:
+    plt.plot(df["step"], df["eval_loss"], label="Eval Loss")
+if "eval_accuracy" in df.columns:
+    plt.plot(df["step"], df["eval_accuracy"], label="Eval Accuracy")
+if "eval_f1" in df.columns:
+    plt.plot(df["step"], df["eval_f1"], label="Eval F1")
+
+plt.xlabel("Steps")
+plt.ylabel("Metric Value")
+plt.title("Training & Evaluation Metrics")
+plt.legend()
+plt.grid(True)
+plt.savefig("training_results.png")
+plt.show()
 
 # 10. 예측 테스트
 sample_text = "이 영화 진짜 재미있고 웃기면서 감동적이기 까지 하더라"

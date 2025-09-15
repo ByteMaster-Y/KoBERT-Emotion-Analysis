@@ -162,6 +162,7 @@ eval_loss: 0.6922
 eval_accuracy: 0.5394
 eval_f1: 0.6409
 
+<img width="979" height="580" alt="Image" src="https://github.com/user-attachments/assets/86b57296-538b-4bb6-bf82-a26297f1e6b6" />
 
 ---
 

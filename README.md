@@ -156,6 +156,15 @@ def tokenize_function(batch):
 
 ---
 
+## 최종 평가 지표
+
+eval_loss: 0.6922
+eval_accuracy: 0.5394
+eval_f1: 0.6409
+
+
+---
+
 ## 사용 예시
 <img width="903" height="356" alt="Image" src="https://github.com/user-attachments/assets/8dd7859d-3a1d-4c46-944f-0cbd8fcff920" />
 

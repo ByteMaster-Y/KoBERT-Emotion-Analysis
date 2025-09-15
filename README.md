@@ -115,7 +115,7 @@ def tokenize_function(batch):
 
 ```
 
----
+----
 
 ## 모델
 

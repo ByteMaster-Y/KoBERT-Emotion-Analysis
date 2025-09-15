@@ -166,7 +166,7 @@ eval_f1: 0.6409
 ---
 
 ## 사용 예시
-<img width="903" height="356" alt="Image" src="https://github.com/user-attachments/assets/8dd7859d-3a1d-4c46-944f-0cbd8fcff920" />
+<img width="1489" height="63" alt="Image" src="https://github.com/user-attachments/assets/521b3386-f6c2-418f-84b6-32b11028834d" />
 
 ### 학습
 
